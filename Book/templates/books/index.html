@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="book-head">
+    <H1>Available Books</H1>
+    <a class="btn" href="{% url 'book:create' %}">Create book</a>
+</div>
+
+<section>
+{% for post in posts %}
+<div class="card">
+    <div class="img-con">
+        {% if post.cover %}
+        <img src="{{post.cover.url}}" alt="">
+        {% endif %}
+    </div>
+    <div class="cont">
+    <h4>{{post.title}}</h4>
+    <p>{{post.summary}}</p>
+    {% if post.pdf %}
+    <a href="{{post.pdf.url}}"target="blank">Read>>></a>
+    {% endif %}
+    <br>
+   {% if post.pdf %}
+   <a href="{{post.pdf.url}}"target="blank" download>download>>></a>>
+   {%endif %}
+</div>
+
+<div>
+    <a href="{% url 'book:delete' post.id %}" class="btn">Delete</a>
+    <a href="{% url 'book:update' post.id %}" class="btn">Update</a>
+</div>
+
+</div>
+{% endfor %}
+</section>
+{% endblock content %}
